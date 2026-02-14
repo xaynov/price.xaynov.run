@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.screen-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.screen-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.gallery-container {
+    width: 90vw; /* 90% ширины экрана */
+    max-width: 75vh; /* Ограничение, чтобы не растягивалась на больших экранах */
+    height: auto; /* Автоматическая высота */
+    max-height: 80vh; /* Не больше 80% высоты экрана */
+    aspect-ratio: 4 / 5; /* Сохраняет исходное соотношение */
+    
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 1;
+}
+
+.gallery-container img {
+    width: 100%; /* Растягиваем по ширине контейнера */
+    height: 100%; /* Заполняем высоту */
+    object-fit: contain; /* Подгоняет изображение без обрезки */
+    border-radius: 20px;
+}
+
+.gallery {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery img.active {
+    left: 0;
+    transform: translateX(0);
+}
+
+.gallery img.prev {
+    left: -100%;
+    transform: translateX(0);
+}
+
+/* === Две точки-индикаторы === */
+.dots-container {
+    position: absolute;
+    bottom: 15px; /* Чуть ближе к краю */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px; /* Меньший отступ между точками */
+    background: none; /* Убираем фон */
+}
+
+.dot {
+    width: 6px; /* Делаем более компактными */
+    height: 6px;
+    background: rgba(255, 255, 255, 0.5); /* Полупрозрачный цвет */
+    border-radius: 50%;
+    transition: width 0.3s, background 0.3s, border-radius 0.3s;
+}
+
+.active-dot {
+    width: 16px; /* Активная точка больше и овальная */
+    border-radius: 8px; /* Овальная форма */
+    background: rgb(226, 226, 226); /* Чёткий цвет для активной */
+}
